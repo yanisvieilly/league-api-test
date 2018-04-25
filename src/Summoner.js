@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
+import SummonerMatchList from './SummonerMatchList';
 
 class Summoner extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
-  componentDidMount() {
-    // fetch(`http://localhost:8000/lol/match/v3/matchlists/by-account/${this.props.accountId}/recent?api_key=RGAPI-91f2d27d-381f-490a-9efb-f2876603ccdb`)
-    //   .then(response => response.json())
-    //   .then(data => {});
-  }
-
   render() {
-    const { accountId, id, name, profileIconId, summonerLevel } = this.props;
+    const { accountId, name, summonerLevel } = this.props;
 
-    return <li>{this.props.name}</li>;
+    return (
+      <div style={{ border: '1px solid #aaa' }}>
+        <h1>{name} (lvl {summonerLevel})</h1>
+        <SummonerMatchList accountId={accountId} />
+      </div>
+    );
   }
 }
 
