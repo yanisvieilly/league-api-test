@@ -21,22 +21,17 @@ class SummonerList extends Component {
   }
 
   formatSummoners() {
-    console.log('formatSummoners');
-    console.log(this.state.summoners);
     return (
       <ul>
-        {this.state.summoners.map(({ accountId, id, name, profileIconId, summonerLevel }) => {
-          console.log('mapping');
-          return (
-            <Summoner
-              key={id}
-              id={id}
-              name={name}
-              profileIconId={profileIconId}
-              summonerLevel={summonerLevel}
-            />
-          );
-        })}
+        {this.state.summoners.map(({ accountId, id, name, profileIconId, summonerLevel }) =>
+          <Summoner
+            key={id}
+            id={id}
+            name={name}
+            profileIconId={profileIconId}
+            summonerLevel={summonerLevel}
+          />
+        )}
       </ul>
     );
   }
