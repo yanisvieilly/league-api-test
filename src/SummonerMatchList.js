@@ -5,6 +5,13 @@ class SummonerMatchList extends Component {
   constructor(props) {
     super(props);
 
+    this.style = {
+      marginLeft: '5px',
+      marginRight: '5px',
+      paddingLeft: 0,
+      textAlign: 'left',
+    };
+
     this.state = {
       matches: [],
     };
@@ -20,7 +27,7 @@ class SummonerMatchList extends Component {
 
   formatMatches() {
     return (
-      <ul style={{ paddingLeft: 0, textAlign: 'left' }}>
+      <ul style={this.style}>
         {this.state.matches.map(({ champion, gameId, timestamp }) =>
           <Match
             key={gameId}
