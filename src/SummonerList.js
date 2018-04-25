@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Summoner from './Summoner';
+import apiKey from './credentials';
 
 // So... I exceeded the rate limit on Riot API during my tests. :/
 // I decided to load all the static champions data from a local file instead.
@@ -18,11 +19,13 @@ class SummonerList extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:8000/lol/summoner/v3/summoners/by-name/BFY%20Meowington?api_key=RGAPI-91f2d27d-381f-490a-9efb-f2876603ccdb')
+    // TODO: Store each query response in a local variable, then use Promise.all
+    //       to set the state when all the queries are completed.
+    fetch(`http://localhost:8000/lol/summoner/v3/summoners/by-name/BFY%20Meowington?api_key=${apiKey}`)
       .then(response => response.json())
       .then(summoner => {
 
-        fetch('http://localhost:8000/lol/static-data/v3/champions?api_key=RGAPI-91f2d27d-381f-490a-9efb-f2876603ccdb')
+        fetch(`http://localhost:8000/lol/static-data/v3/champions?api_key=${apiKey}`)
           .then(response => response.json())
           .then(({ data }) => {
             this.setState({

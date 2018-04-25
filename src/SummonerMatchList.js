@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Match from './Match';
+import apiKey from './credentials';
 
 class SummonerMatchList extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class SummonerMatchList extends Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:8000/lol/match/v3/matchlists/by-account/${this.props.accountId}/recent?api_key=RGAPI-91f2d27d-381f-490a-9efb-f2876603ccdb`)
+    fetch(`http://localhost:8000/lol/match/v3/matchlists/by-account/${this.props.accountId}/recent?api_key=${apiKey}`)
       .then(response => response.json())
       .then(({ matches }) => this.setState({ matches: [...matches] }));
   }
@@ -42,6 +43,7 @@ class SummonerMatchList extends Component {
             championName={this.retrieveChampionName(champion)}
             gameId={gameId}
             timestamp={timestamp}
+            accountId={this.props.accountId}
           />
         )}
       </ul>
