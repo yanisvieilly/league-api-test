@@ -12,8 +12,11 @@ class Match extends Component {
     };
   }
 
+  componentDidMount() {
+  }
+
   render() {
-    const { champion, gameId, timestamp } = this.props;
+    const { gameId, timestamp } = this.props;
 
     return (
       <li style={this.style}>
@@ -22,7 +25,7 @@ class Match extends Component {
             Game #{gameId}, played {relativeDate(timestamp)}
           </h2>
           <ul>
-            <li>Champion: {champion}</li>
+            <li>Champion: {this.props.championName}</li>
           </ul>
         </div>
       </li>

@@ -19,10 +19,18 @@ class SummonerMatchList extends Component {
     this.formatMatches = this.formatMatches.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     fetch(`http://localhost:8000/lol/match/v3/matchlists/by-account/${this.props.accountId}/recent?api_key=RGAPI-91f2d27d-381f-490a-9efb-f2876603ccdb`)
       .then(response => response.json())
       .then(({ matches }) => this.setState({ matches: [...matches] }));
+  }
+
+  retrieveChampionName(championId) {
+    const { name } = this.props.champions.find(champion =>
+      champion.id === championId
+    );
+
+    return name;
   }
 
   formatMatches() {
@@ -31,7 +39,7 @@ class SummonerMatchList extends Component {
         {this.state.matches.map(({ champion, gameId, timestamp }) =>
           <Match
             key={gameId}
-            champion={champion}
+            championName={this.retrieveChampionName(champion)}
             gameId={gameId}
             timestamp={timestamp}
           />
