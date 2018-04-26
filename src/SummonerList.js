@@ -11,7 +11,7 @@ class SummonerList extends Component {
     super(props);
 
     this.state = {
-      summoners: [],
+      summoner: {},
       champions: [],
     };
 
@@ -19,9 +19,19 @@ class SummonerList extends Component {
   }
 
   componentDidMount() {
+    this.initialFetch(this.props.summonerName);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.summonerName !== nextProps.summonerName) {
+      this.initialFetch(nextProps.summonerName);
+    }
+  }
+
+  initialFetch(summonerName) {
     // TODO: Store each query response in a local variable, then use Promise.all
     //       to set the state when all the queries are completed.
-    fetch(`http://localhost:8000/lol/summoner/v3/summoners/by-name/BFY%20Meowington?api_key=${apiKey}`)
+    fetch(`http://localhost:8000/lol/summoner/v3/summoners/by-name/${summonerName}?api_key=${apiKey}`)
       .then(response => response.json())
       .then(summoner => {
 
@@ -29,7 +39,7 @@ class SummonerList extends Component {
           .then(response => response.json())
           .then(({ data }) => {
             this.setState({
-              summoners: [...this.state.summoners, summoner],
+              summoner,
               champions: Object.values(championsData),
             });
           });
@@ -38,17 +48,17 @@ class SummonerList extends Component {
   }
 
   formatSummoners() {
+    const { id, accountId, name, summonerLevel } = this.state.summoner;
+
     return (
       <div>
-        {this.state.summoners.map(({ id, accountId, name, summonerLevel }) =>
-          <Summoner
-            key={id}
-            accountId={accountId}
-            name={name}
-            summonerLevel={summonerLevel}
-            champions={this.state.champions}
-          />
-        )}
+        <Summoner
+          key={id}
+          accountId={accountId}
+          name={name}
+          summonerLevel={summonerLevel}
+          champions={this.state.champions}
+        />
       </div>
     );
   }
