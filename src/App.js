@@ -28,15 +28,17 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">LoL Summoners</h1>
         </header>
-        <input
-          type="text"
-          value={this.state.inputValue}
-          onChange={this.handleChange}
-        />
-        <button onClick={this.handleClick}>Go!</button>
+        <div style={{ padding: '10px' }}>
+          <input
+            type="text"
+            value={this.state.inputValue}
+            onChange={this.handleChange}
+            style={{ marginRight: '10px' }}
+          />
+          <button onClick={this.handleClick}>Go!</button>
+        </div>
         <SummonerList summonerName={encodeURI(this.state.summonerName)} />
       </div>
     );
